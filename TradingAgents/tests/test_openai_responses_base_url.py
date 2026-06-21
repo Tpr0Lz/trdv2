@@ -30,12 +30,12 @@ class NativeBaseUrlTests:
 @pytest.mark.unit
 class ResponsesApiSelectionTests:
     def test_native_openai_enables_responses_api(self, monkeypatch):
-        monkeypatch.setenv("OPENAI_API_KEY", "sk-test")
+        monkeypatch.setenv("OPENAI_API_KEY", "openai-test-key")
         llm = OpenAIClient("gpt-5.5", provider="openai").get_llm()
         assert getattr(llm, "use_responses_api", False) is True
 
     def test_custom_base_url_disables_responses_api(self, monkeypatch):
-        monkeypatch.setenv("OPENAI_API_KEY", "sk-test")
+        monkeypatch.setenv("OPENAI_API_KEY", "openai-test-key")
         llm = OpenAIClient(
             "gpt-5.5", base_url="http://localhost:1234/v1", provider="openai"
         ).get_llm()

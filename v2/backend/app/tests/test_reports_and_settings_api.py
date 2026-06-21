@@ -179,17 +179,17 @@ def test_settings_defaults_and_update(monkeypatch):
             "default_analysts": ["market", "news"],
             "default_research_depth": 2,
             "default_checkpoint_enabled": True,
-            "deepseek_api_key": "sk-test-deepseek",
+            "deepseek_api_key": "deepseek-test-key",
             "fred_api_key": "fred-test-key",
         },
     )
 
     assert updated.status_code == 200
     assert updated.json()["default_llm_provider"] == "deepseek"
-    assert updated.json()["deepseek_api_key"] == "sk-test-deepseek"
+    assert updated.json()["deepseek_api_key"] == "deepseek-test-key"
     assert updated.json()["fred_api_key"] == "fred-test-key"
     assert client.get("/api/settings").json()["default_analysts"] == ["market", "news"]
-    assert client.get("/api/settings").json()["deepseek_api_key"] == "sk-test-deepseek"
+    assert client.get("/api/settings").json()["deepseek_api_key"] == "deepseek-test-key"
 
 
 def test_get_settings_upgrades_legacy_openai_defaults(monkeypatch):
@@ -217,7 +217,7 @@ def test_get_settings_upgrades_legacy_openai_defaults(monkeypatch):
 
 
 def test_get_settings_backfills_missing_api_keys_from_env(monkeypatch):
-    monkeypatch.setenv("DEEPSEEK_API_KEY", "sk-from-env")
+    monkeypatch.setenv("DEEPSEEK_API_KEY", "deepseek-env-key")
     monkeypatch.setenv("FRED_API_KEY", "fred-from-env")
     client = make_client(monkeypatch)
     login(client)
@@ -231,7 +231,7 @@ def test_get_settings_backfills_missing_api_keys_from_env(monkeypatch):
     response = client.get("/api/settings")
 
     assert response.status_code == 200
-    assert response.json()["deepseek_api_key"] == "sk-from-env"
+    assert response.json()["deepseek_api_key"] == "deepseek-env-key"
     assert response.json()["fred_api_key"] == "fred-from-env"
 
 
@@ -249,7 +249,7 @@ def test_update_settings_keeps_existing_api_keys_when_payload_is_blank(monkeypat
             "default_analysts": ["market", "news"],
             "default_research_depth": 2,
             "default_checkpoint_enabled": True,
-            "deepseek_api_key": "sk-keep-me",
+            "deepseek_api_key": "deepseek-keep-me",
             "fred_api_key": "fred-keep-me",
         },
     )
@@ -270,5 +270,5 @@ def test_update_settings_keeps_existing_api_keys_when_payload_is_blank(monkeypat
     )
 
     assert updated.status_code == 200
-    assert updated.json()["deepseek_api_key"] == "sk-keep-me"
+    assert updated.json()["deepseek_api_key"] == "deepseek-keep-me"
     assert updated.json()["fred_api_key"] == "fred-keep-me"

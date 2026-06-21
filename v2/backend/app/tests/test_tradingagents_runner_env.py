@@ -34,20 +34,20 @@ def test_backend_package_installs_local_tradingagents_dependency():
 
 def test_export_provider_api_keys_sets_deepseek_key_from_settings(monkeypatch):
     monkeypatch.delenv("DEEPSEEK_API_KEY", raising=False)
-    settings = SimpleNamespace(deepseek_api_key="sk-test-deepseek")
+    settings = SimpleNamespace(deepseek_api_key="deepseek-test-key")
 
     export_provider_api_keys(settings)
 
-    assert os.environ["DEEPSEEK_API_KEY"] == "sk-test-deepseek"
+    assert os.environ["DEEPSEEK_API_KEY"] == "deepseek-test-key"
 
 
 def test_export_provider_api_keys_restores_backend_env_value(monkeypatch):
-    monkeypatch.setenv("DEEPSEEK_API_KEY", "sk-from-previous-run")
-    settings = SimpleNamespace(deepseek_api_key="sk-from-env-file")
+    monkeypatch.setenv("DEEPSEEK_API_KEY", "deepseek-previous-key")
+    settings = SimpleNamespace(deepseek_api_key="deepseek-env-file-key")
 
     export_provider_api_keys(settings)
 
-    assert os.environ["DEEPSEEK_API_KEY"] == "sk-from-env-file"
+    assert os.environ["DEEPSEEK_API_KEY"] == "deepseek-env-file-key"
 
 
 def test_resolve_tradingagents_project_dir_rejects_invalid_path(tmp_path):
@@ -58,11 +58,11 @@ def test_resolve_tradingagents_project_dir_rejects_invalid_path(tmp_path):
 
 
 def test_apply_runtime_api_keys_overrides_existing_process_env(monkeypatch):
-    monkeypatch.setenv("DEEPSEEK_API_KEY", "sk-old")
+    monkeypatch.setenv("DEEPSEEK_API_KEY", "deepseek-old-key")
 
-    apply_runtime_api_keys({"DEEPSEEK_API_KEY": "sk-from-web-settings"})
+    apply_runtime_api_keys({"DEEPSEEK_API_KEY": "deepseek-web-key"})
 
-    assert os.environ["DEEPSEEK_API_KEY"] == "sk-from-web-settings"
+    assert os.environ["DEEPSEEK_API_KEY"] == "deepseek-web-key"
 
 
 def test_apply_runtime_api_keys_keeps_backend_env_for_empty_web_setting(monkeypatch):

@@ -388,7 +388,7 @@ def test_manager_passes_web_settings_api_keys_to_runner():
     run_id = create_queued_run()
     with SessionLocal() as db:
         settings = get_or_create_settings(db, "admin")
-        settings.deepseek_api_key = "sk-db-deepseek"
+        settings.deepseek_api_key = "deepseek-db-key"
         settings.fred_api_key = "fred-db-key"
         db.commit()
 
@@ -398,13 +398,13 @@ def test_manager_passes_web_settings_api_keys_to_runner():
     manager.start_run(run_id)
 
     assert runner.runtime_api_keys == {
-        "DEEPSEEK_API_KEY": "sk-db-deepseek",
+        "DEEPSEEK_API_KEY": "deepseek-db-key",
         "FRED_API_KEY": "fred-db-key",
     }
 
 
 def test_manager_falls_back_to_backend_env_api_keys_when_db_keys_are_blank(monkeypatch):
-    monkeypatch.setenv("DEEPSEEK_API_KEY", "sk-env-deepseek")
+    monkeypatch.setenv("DEEPSEEK_API_KEY", "deepseek-env-key")
     monkeypatch.setenv("FRED_API_KEY", "fred-env-key")
     run_id = create_queued_run()
     with SessionLocal() as db:
@@ -419,7 +419,7 @@ def test_manager_falls_back_to_backend_env_api_keys_when_db_keys_are_blank(monke
     manager.start_run(run_id)
 
     assert runner.runtime_api_keys == {
-        "DEEPSEEK_API_KEY": "sk-env-deepseek",
+        "DEEPSEEK_API_KEY": "deepseek-env-key",
         "FRED_API_KEY": "fred-env-key",
     }
 

@@ -31,7 +31,7 @@
                 v-model:value="form.deepseek_api_key"
                 type="password"
                 show-password-on="click"
-                placeholder="sk-..."
+                placeholder="请输入 DeepSeek API Key"
               />
             </n-form-item>
             <n-form-item label="FRED API Key">

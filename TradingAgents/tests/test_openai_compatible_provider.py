@@ -48,12 +48,12 @@ def test_keyless_local_uses_placeholder_and_chat_completions(monkeypatch):
 
 @pytest.mark.unit
 def test_optional_key_from_env(monkeypatch):
-    monkeypatch.setenv("OPENAI_COMPATIBLE_API_KEY", "sk-relay-123")
+    monkeypatch.setenv("OPENAI_COMPATIBLE_API_KEY", "relay-test-key")
     llm = create_llm_client(
         provider="openai_compatible", model="m", base_url="https://relay.example/v1"
     ).get_llm()
     key = llm.openai_api_key.get_secret_value() if hasattr(llm.openai_api_key, "get_secret_value") else llm.openai_api_key
-    assert key == "sk-relay-123"
+    assert key == "relay-test-key"
 
 
 @pytest.mark.unit
