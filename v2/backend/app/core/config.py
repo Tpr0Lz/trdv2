@@ -11,11 +11,11 @@ class Settings(BaseSettings):
     app_env: str = "development"
     app_secret_key: str = Field(default="change-me-in-local-env")
     database_url: str = (
-        "postgresql+psycopg://tradingagents:tradingagents@localhost:54329/tradingagents_v2"
+        "postgresql+psycopg://change-me:change-me@localhost:54329/tradingagents_v2"
     )
 
     single_user_username: str = "admin"
-    single_user_password: str = "admin123456"
+    single_user_password: str = "change-me-in-local-env"
 
     tradingagents_project_dir: Path = Path("../../TradingAgents")
     tradingagents_results_dir: Path = Path(".runtime/tradingagents/logs")

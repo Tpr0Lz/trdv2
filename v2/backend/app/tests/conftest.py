@@ -11,7 +11,8 @@ from app.db.base import Base
 from app.db import models  # noqa: F401
 from app.db.session import reconfigure_session_factory
 
-TEST_DATABASE_URL = "postgresql+psycopg://tradingagents:tradingagents@localhost:54329/tradingagents_v2_test"
+# 中文注释：公开仓库只保留占位测试库地址，实际运行请通过 TEST_DATABASE_URL 覆盖。
+TEST_DATABASE_URL = "postgresql+psycopg://change-me:change-me@localhost:54329/tradingagents_v2_test"
 
 
 def _admin_database_url(database_url: str) -> str:
