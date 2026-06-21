@@ -1,0 +1,4 @@
+as_of_date,ticker,name,weight,sector,industry,source_id
+2026-01-31,NVDA,NVIDIA Corp,7.10,Information Technology,Semiconductors,spy_holdings_sample
+2026-01-31,AAPL,Apple Inc,6.20,Information Technology,Technology Hardware,spy_holdings_sample
+2026-01-31,MSFT,Microsoft Corp,6.00,Information Technology,Software,spy_holdings_sample

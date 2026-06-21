@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: tradingagents_v2_postgres
+    environment:
+      POSTGRES_DB: tradingagents_v2
+      POSTGRES_USER: tradingagents
+      POSTGRES_PASSWORD: tradingagents
+    ports:
+      - "54329:5432"
+    volumes:
+      - tradingagents_v2_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tradingagents -d tradingagents_v2"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  tradingagents_v2_postgres_data:
+
